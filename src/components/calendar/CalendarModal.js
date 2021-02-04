@@ -8,7 +8,11 @@ import Swal from 'sweetalert2';
 import "react-datepicker/dist/react-datepicker.css";
 import { uiCloseModal } from '../../actions/ui';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewEvent, clearActiveEvent, updateEvent } from '../../actions/events';
+import { 
+    clearActiveEvent, 
+    startAddNewEvent, 
+    startUpdateEvent, 
+} from '../../actions/events';
 
 const customStyles = {
     content : {
@@ -73,11 +77,12 @@ export const CalendarModal = () => {
         setEndDate(e)
         setFormValue({
             ...formValue,
-            start: e
+            end: e
         });
     }
 
-    const [valid, setValid] = useState(true)
+    const [valid, setValid] = useState(true);
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -93,16 +98,9 @@ export const CalendarModal = () => {
         }
 
         if(activeEvent) {
-            dispatch(updateEvent(formValue))
+            dispatch(startUpdateEvent(formValue))
         } else {
-            dispatch(addNewEvent({
-                ...formValue,
-                id: new Date().getTime(),
-                user:{
-                    _id:'67vb324b',
-                    name:'Momoy'
-                }   
-            }));
+            dispatch(startAddNewEvent(formValue));
         }
 
         
@@ -110,7 +108,7 @@ export const CalendarModal = () => {
         setValid(true)
         closeModal();
 
-        console.log(formValue,momentStart, momentEnd)
+        //console.log(formValue,momentStart, momentEnd)
     }
 
     

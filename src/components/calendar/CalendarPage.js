@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Navbar } from '../ui/Navbar';
 import { CalendarEvent } from './CalendarEvent';
@@ -12,7 +12,7 @@ import moment from 'moment';
 import 'moment/locale/es'; //Configuración para cambio de idioma en moment 
 import { uiOpenModal } from '../../actions/ui';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearActiveEvent, setActiveEvent } from '../../actions/events';
+import { clearActiveEvent, loadEvents, setActiveEvent } from '../../actions/events';
 import { AddNewButton } from '../ui/AddNewButton';
 import { DeleteButton } from '../ui/DeleteButton';
 moment.locale('es');//cambio a español para cabezera de dias de la semana
@@ -23,7 +23,8 @@ const localizer = momentLocalizer(moment); // or globalizeLocalizer
 export const CalendarPage = () => {
 
     const dispatch = useDispatch();
-    const {events, activeEvent} = useSelector(state => state.calendar)     
+    const {events, activeEvent} = useSelector(state => state.calendar);     
+    const { uid } = useSelector(state => state.auth);     
 
 
     const [lastView, setLastView] = useState( localStorage.getItem('lastView') || 'month')
@@ -50,7 +51,7 @@ export const CalendarPage = () => {
         //console.log(e, start, end, isSelected)
 
         const style = {
-            backgroundColor : '#0608F0',
+            backgroundColor : (uid === e.user._id ? '#0608F0' : '455660'),
             borderRadius : '0px',
             opacity : 0.8,
             display : 'block',
@@ -61,6 +62,10 @@ export const CalendarPage = () => {
             style
         }
     }
+
+    useEffect(() => {
+        dispatch(loadEvents());
+    }, []);
 
     return (
         <div className='calendar-screen'>

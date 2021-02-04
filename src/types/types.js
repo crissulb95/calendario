@@ -6,10 +6,12 @@ export const types = {
 
     //ACCIONES PARA CALENDARIO
     setActiveEvent: '[CALENDAR] set active',
+    eventStartAddNew:'[CALENDAR] start adding new event',
     addNewEvent: '[CALENDAR] add new event',
     clearActiveEvent:'[CALENDAR] clear active event',
     updateEvent: '[CALENDAR] update event',
     deleteEvent: '[CALENDAR] delete event',
+    setLoadEvents: '[CALENDAR] set loaded events to store',
 
     //ACCIONES PARA AUTORIZACIÓN
     authChecking:'[AUTH] checking login state',
@@ -19,4 +21,7 @@ export const types = {
     authStartRegister:'[AUTH] start register',
     authStartTokenRenew:'[AUTH] start token renew',
     authLogOut:'[AUTH] logout',
+
+    //Eliminación de eventos
+    logOutDelete:'[CALENDAR] delete all events',
 }
