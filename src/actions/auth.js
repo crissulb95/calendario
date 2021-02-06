@@ -68,15 +68,15 @@ export const startLogOut = () => {
     }
 }
 
-const login = user => ({
+export const login = user => ({
     type: types.authLogin,
     payload: user
 });
 
-const checkingFinish = () => ({
+export const checkingFinish = () => ({
     type: types.authCheckingFinish
 });
 
-const logout = () => ({
+export const logout = () => ({
     type: types.authLogOut
 });

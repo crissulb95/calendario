@@ -25,7 +25,9 @@ const customStyles = {
     }
 };
 
-Modal.setAppElement('#root');
+if(process.env.NODE_ENV !== 'test') { //Condicional debido a pruebas, no debería ir 
+    Modal.setAppElement('#root');
+}
 /**Supongo que es de donde se va a tomar la referencia para aparecer el modal 
  * justo encima de este elemento que es donde se renderiza toda la app
  */
@@ -89,7 +91,7 @@ export const CalendarModal = () => {
         const momentStart = moment(start)
         const momentEnd = moment(end)
 
-        if(momentStart.isAfter(momentEnd)){
+        if(momentStart.isSameOrAfter(momentEnd)){
             console.log('Tiene que ser mayor')
             return Swal.fire('Error', 'La fecha de fin tiene que ser mayor a la fecha de inicio', 'error')
         } 
@@ -136,6 +138,7 @@ export const CalendarModal = () => {
             closeTimeoutMS={250}
             style={customStyles}
             className='modal'
+            ariaHideApp={ process.env.NODE_ENV !== 'test' }//calendarmodal
             overlayClassName='modal-fondo'
         >
             <h2> { activeEvent ? 'Editar evento' : 'Nuevo evento' } </h2>

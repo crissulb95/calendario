@@ -7,6 +7,7 @@ export const DeleteButton = () => {
     const dispatch = useDispatch();
 
     const handleDelete = () => {
+        console.log('delete');
         dispatch(startDeleteEvent());
     }
 

@@ -14,8 +14,8 @@ export const LoginPage = () => {
     });
     
     const [ registerValue, handleRegisterInputChange ] = useForm({
-        registerMail:'',
-        registerName:'',
+        registerMail:'test@test.com',
+        registerName:'Test',
         registerPassword:'123123123',
         registerPassword2:'123123123',
     });
@@ -26,7 +26,7 @@ export const LoginPage = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-
+        console.log(loginMail, loginPassword);
         dispatch(startLogin(loginMail, loginPassword));
         //console.log(value);
     }
